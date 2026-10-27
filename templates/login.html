@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}System Login{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="glass-card p-4 p-md-5">
+                <div class="text-center mb-4">
+                    <div class="d-inline-flex align-items-center justify-content-center rounded-circle bg-primary bg-opacity-25 text-primary mb-3" style="width:60px; height:60px; font-size:1.8rem;">
+                        <i class="fa-solid fa-user-lock"></i>
+                    </div>
+                    <h3 class="text-white fw-bold">Sign In to Dashboard</h3>
+                    <p class="text-secondary small">Smart Traffic Control System Portal</p>
+                </div>
+
+                <form id="loginForm" method="POST" action="{{ url_for('login') }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                    <div class="mb-3">
+                        <label class="form-label text-secondary small fw-semibold">Username or Email Address</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-dark border-secondary text-secondary"><i class="fa-solid fa-user"></i></span>
+                            <input type="text" id="loginIdentifier" name="username" class="form-control form-control-cyber" placeholder="Enter username or email" required autofocus>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label text-secondary small fw-semibold">Password</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-dark border-secondary text-secondary"><i class="fa-solid fa-key"></i></span>
+                            <input type="password" id="loginPassword" name="password" class="form-control form-control-cyber" placeholder="Enter password" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="loginBtn" class="btn btn-cyber w-100 mb-3 py-2 fw-bold">
+                        <i class="fa-solid fa-right-to-bracket me-2"></i> Log In
+                    </button>
+                </form>
+
+                <div class="p-2 rounded bg-dark bg-opacity-50 border border-secondary border-opacity-25 text-center mt-2">
+                    <span class="text-secondary small">Default Admin: </span>
+                    <button type="button" class="btn btn-link btn-sm text-cyan p-0 text-decoration-none fw-semibold" onclick="document.getElementById('loginIdentifier').value='admin'; document.getElementById('loginPassword').value='123456';">
+                        admin / 123456 (Click to fill)
+                    </button>
+                </div>
+
+                <div class="text-center mt-3">
+                    <span class="text-secondary small">Don't have an account?</span>
+                    <a href="{{ url_for('register') }}" class="text-cyan small fw-bold text-decoration-none ms-1">Register Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    var btn = document.getElementById('loginBtn');
+    if (btn.getAttribute('data-submitting') === 'true') {
+        e.preventDefault();
+        return false;
+    }
+    btn.setAttribute('data-submitting', 'true');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Verifying...';
+    // Allow actual submission
+    this.submit();
+});
+</script>
+{% endblock %}
+

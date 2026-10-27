@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+
+{% block title %}Alert Notifications & System Logs{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h2 class="text-white fw-bold mb-1"><i class="fa-solid fa-bell text-warning me-2"></i> System Alerts & Audit Logs</h2>
+            <p class="text-secondary small mb-0">Automated congestion notifications, camera heartbeat status, and user session activity</p>
+        </div>
+    </div>
+
+    <!-- Active Alerts Table -->
+    <div class="glass-card p-4 mb-4">
+        <h5 class="text-white fw-bold mb-3"><i class="fa-solid fa-triangle-exclamation text-danger me-2"></i> Traffic Congestion Alerts</h5>
+        <div class="table-responsive">
+            <table class="table table-custom align-middle">
+                <thead>
+                    <tr>
+                        <th>Alert ID</th>
+                        <th>Camera Source</th>
+                        <th>Severity</th>
+                        <th>Alert Message</th>
+                        <th>Status</th>
+                        <th>Timestamp</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for a in alerts %}
+                    <tr>
+                        <td class="text-secondary">#ALT-{{ a.id }}</td>
+                        <td class="text-white fw-semibold">Camera #{{ a.camera_id }}</td>
+                        <td>
+                            {% if a.severity == 'Critical' %}
+                            <span class="badge bg-danger">Critical</span>
+                            {% elif a.severity == 'Warning' %}
+                            <span class="badge bg-warning text-dark">Warning</span>
+                            {% else %}
+                            <span class="badge bg-info">Info</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-white small">{{ a.message }}</td>
+                        <td>
+                            {% if a.acknowledged %}
+                            <span class="badge bg-secondary">Acknowledged</span>
+                            {% else %}
+                            <span class="badge bg-danger animate-pulse">Active</span>
+                            {% endif %}
+                        </td>
+                        <td class="small text-secondary">{{ a.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                        <td>
+                            {% if not a.acknowledged %}
+                            <button class="btn btn-glass btn-sm text-success" onclick="ackAlert({{ a.id }})">
+                                <i class="fa-solid fa-check me-1"></i> Dismiss
+                            </button>
+                            {% else %}
+                            <span class="text-muted small">Cleared</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center text-muted py-4">No active system alerts recorded.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="glass-card p-4 mb-4">
+        <h5 class="text-white fw-bold mb-3"><i class="fa-solid fa-microchip text-cyan me-2"></i> IoT Device Alerts</h5>
+        <div class="table-responsive">
+            <table class="table table-custom align-middle">
+                <thead>
+                    <tr><th>Device</th><th>Severity</th><th>Alert</th><th>Status</th><th>Timestamp (UTC)</th><th>Action</th></tr>
+                </thead>
+                <tbody>
+                    {% for a in iot_alerts %}
+                    <tr>
+                        <td class="text-white">{{ a.device_id }}</td>
+                        <td><span class="badge {% if a.severity == 'Critical' %}bg-danger{% elif a.severity == 'Warning' %}bg-warning text-dark{% else %}bg-info{% endif %}">{{ a.severity }}</span></td>
+                        <td class="text-white small">{{ a.message }}</td>
+                        <td>
+                            {% if a.resolved_at %}<span class="badge bg-success">Resolved</span>
+                            {% elif a.acknowledged %}<span class="badge bg-secondary">Acknowledged</span>
+                            {% else %}<span class="badge bg-danger">Active</span>{% endif %}
+                        </td>
+                        <td class="small text-secondary">{{ a.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                        <td>
+                            {% if not a.acknowledged %}
+                            <button class="btn btn-glass btn-sm text-success" onclick="ackIoTAlert({{ a.id }})">Acknowledge</button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="6" class="text-center text-muted py-4">No IoT device alerts recorded.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Audit Login History -->
+    <div class="glass-card p-4">
+        <h5 class="text-white fw-bold mb-3"><i class="fa-solid fa-shield-halved text-cyan me-2"></i> System Authentication Logs</h5>
+        <div class="table-responsive">
+            <table class="table table-custom align-middle">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Username</th>
+                        <th>IP Address</th>
+                        <th>User Agent</th>
+                        <th>Status</th>
+                        <th>Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for l in logs %}
+                    <tr>
+                        <td class="text-secondary">#{{ l.user_id }}</td>
+                        <td class="text-white fw-semibold">{{ l.username }}</td>
+                        <td class="text-cyan small">{{ l.ip_address }}</td>
+                        <td class="text-secondary small">{{ l.user_agent }}</td>
+                        <td><span class="badge bg-success">Success</span></td>
+                        <td class="small text-secondary">{{ l.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+async function ackAlert(alertId) {
+    const resp = await fetch(`/api/alerts/acknowledge/${alertId}`, {
+        method: 'POST',
+        headers: { 'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content }
+    });
+    if (resp.ok) {
+        window.location.reload();
+    }
+}
+async function ackIoTAlert(alertId) {
+    const resp = await fetch(`/api/iot/alerts/${alertId}/acknowledge`, {
+        method: 'POST',
+        headers: { 'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content }
+    });
+    if (resp.ok) window.location.reload();
+}
+</script>
+{% endblock %}

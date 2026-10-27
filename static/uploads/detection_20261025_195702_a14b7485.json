@@ -1,0 +1,299 @@
+{
+  "filename": "upload_20260921_135957_0fdd4c01.jpg",
+  "timestamp": "2026-10-25T14:27:02.439149Z",
+  "mode": "balanced",
+  "inference_time_ms": 2601.0,
+  "total_vehicles": 25,
+  "breakdown": {
+    "cars": 25,
+    "buses": 0,
+    "trucks": 0,
+    "motorcycles": 0,
+    "bicycles": 0,
+    "vans": 0
+  },
+  "density": {
+    "level": "High",
+    "congestion_pct": 88.5,
+    "occupancy_rate": 14.0,
+    "road_density": 1.077,
+    "total_road_area": 232164
+  },
+  "detected_objects": [
+    {
+      "type": "Car",
+      "bbox": [
+        24,
+        29,
+        54,
+        26
+      ],
+      "confidence": 72.5,
+      "area": 1404
+    },
+    {
+      "type": "Car",
+      "bbox": [
+        102,
+        27,
+        60,
+        27
+      ],
+      "confidence": 79.6,
+      "area": 1620
+    },
+    {
+      "type": "Car",
+      "bbox": [
+        200,
+        30,
+        53,
+        24
+      ],
+      "confidence": 73.5,
+      "area": 1272
+    },
+    {
+      "type": "Car",
+      "bbox": [
+        279,
+        29,
+        55,
+        26
+      ],
+      "confidence": 76.9,
+      "area": 1430
+    },
+    {
+      "type": "Car",
+      "bbox": [
+        364,
+        32,
+        54,
+        27
+      ],
+      "confidence": 67.3,
+      "area": 1458
+    },
+    {
+      "type": "Car",
+      "bbox": [
+        447,
+        30,
+        53,
+        25
+      ],
+      "confidence": 71.6,
+      "area": 1325
+    },
+    {
+      "type": "Car",
+      "bbox": [
+        533,
+        29,
+        56,
+        24
+      ],
+      "confidence": 78.8,
+      "area": 1344
+    },
+    {
+      "type": "Car",
+      "bbox": [
+        610,
+        30,
+        58,
+        23
+      ],
+      "confidence": 68.4,
+      "area": 1334
+    },
+    {
+      "type": "Car",
+      "bbox": [
+        0,
+        68,
+        36,
+        25
+      ],
+      "confidence": 75.4,
+      "area": 900
+    },
+    {
+      "type": "Car",
+      "bbox": [
+        54,
+        69,
+        50,
+        25
+      ],
+      "confidence": 65.0,
+      "area": 1250
+    },
+    {
+      "type": "Car",
+      "bbox": [
+        144,
+        71,
+        48,
+        23
+      ],
+      "confidence": 60.0,
+      "area": 1104
+    },
+    {
+      "type": "Car",
+      "bbox": [
+        207,
+        71,
+        54,
+        24
+      ],
+      "confidence": 54.5,
+      "area": 1296
+    },
+    {
+      "type": "Car",
+      "bbox": [
+        280,
+        71,
+        52,
+        24
+      ],
+      "confidence": 72.1,
+      "area": 1248
+    },
+    {
+      "type": "Car",
+      "bbox": [
+        353,
+        66,
+        54,
+        25
+      ],
+      "confidence": 74.6,
+      "area": 1350
+    },
+    {
+      "type": "Car",
+      "bbox": [
+        440,
+        72,
+        57,
+        24
+      ],
+      "confidence": 67.7,
+      "area": 1368
+    },
+    {
+      "type": "Car",
+      "bbox": [
+        505,
+        61,
+        52,
+        25
+      ],
+      "confidence": 45.0,
+      "area": 1300
+    },
+    {
+      "type": "Car",
+      "bbox": [
+        579,
+        72,
+        51,
+        24
+      ],
+      "confidence": 73.4,
+      "area": 1224
+    },
+    {
+      "type": "Car",
+      "bbox": [
+        663,
+        70,
+        31,
+        26
+      ],
+      "confidence": 80.7,
+      "area": 806
+    },
+    {
+      "type": "Car",
+      "bbox": [
+        20,
+        107,
+        56,
+        25
+      ],
+      "confidence": 54.7,
+      "area": 1400
+    },
+    {
+      "type": "Car",
+      "bbox": [
+        251,
+        111,
+        57,
+        24
+      ],
+      "confidence": 58.5,
+      "area": 1368
+    },
+    {
+      "type": "Car",
+      "bbox": [
+        343,
+        109,
+        55,
+        22
+      ],
+      "confidence": 57.3,
+      "area": 1210
+    },
+    {
+      "type": "Car",
+      "bbox": [
+        441,
+        112,
+        62,
+        26
+      ],
+      "confidence": 69.2,
+      "area": 1612
+    },
+    {
+      "type": "Car",
+      "bbox": [
+        535,
+        109,
+        62,
+        26
+      ],
+      "confidence": 59.5,
+      "area": 1612
+    },
+    {
+      "type": "Car",
+      "bbox": [
+        645,
+        109,
+        49,
+        22
+      ],
+      "confidence": 72.0,
+      "area": 1078
+    },
+    {
+      "type": "Car",
+      "bbox": [
+        471,
+        186,
+        52,
+        24
+      ],
+      "confidence": 37.6,
+      "area": 1248
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}About Project{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="glass-card p-5 mb-4">
+        <h2 class="text-white fw-bold mb-3"><i class="fa-solid fa-graduation-cap text-cyan me-2"></i> About the Project</h2>
+        <p class="lead text-secondary mb-4">
+            "Smart Traffic Density Prediction using IoT and Deep Neural Networks (DNN)" is a comprehensive B.E. Final-Year Computer Science & Engineering thesis project designed to mitigate traffic congestion, reduce emissions, and provide intelligent traffic light management telemetry.
+        </p>
+
+        <h4 class="text-white fw-bold mt-4 mb-3">Key Technical Highlights</h4>
+        <div class="row g-3">
+            <div class="col-md-6">
+                <div class="p-3 bg-dark bg-opacity-50 rounded-3 border border-secondary">
+                    <h6 class="text-cyan fw-bold"><i class="fa-solid fa-brain me-2"></i> Deep Neural Network (DNN) Model</h6>
+                    <p class="text-secondary small mb-0">Multi-layer Perceptron (MLP) architecture (64 -> 32 hidden units) trained on traffic count, velocity, lane occupancy ratio, and temporal hour features.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-3 bg-dark bg-opacity-50 rounded-3 border border-secondary">
+                    <h6 class="text-cyan fw-bold"><i class="fa-solid fa-eye me-2"></i> OpenCV Computer Vision Engine</h6>
+                    <p class="text-secondary small mb-0">Background subtraction (MOG2), noise filtration, contour detection, aspect ratio classification, and Region of Interest (ROI) monitoring line.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-3 bg-dark bg-opacity-50 rounded-3 border border-secondary">
+                    <h6 class="text-cyan fw-bold"><i class="fa-solid fa-wifi me-2"></i> IoT ESP32-CAM Microcontroller</h6>
+                    <p class="text-secondary small mb-0">Captures live MJPEG video stream over local Wi-Fi, streaming directly into Flask backend for real-time video inference.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-3 bg-dark bg-opacity-50 rounded-3 border border-secondary">
+                    <h6 class="text-cyan fw-bold"><i class="fa-solid fa-database me-2"></i> Full-Stack Flask & SQLite</h6>
+                    <p class="text-secondary small mb-0">8 relational tables, session security, role-based access controls, interactive Chart.js analytics, and automated PDF report export.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

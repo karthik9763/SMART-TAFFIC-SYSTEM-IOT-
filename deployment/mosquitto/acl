@@ -1,0 +1,4 @@
+user smart-traffic-bridge
+topic read traffic/+/+
+
+pattern write traffic/%u/#

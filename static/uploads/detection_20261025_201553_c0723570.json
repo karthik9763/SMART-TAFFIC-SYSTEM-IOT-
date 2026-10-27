@@ -1,0 +1,23 @@
+{
+  "filename": "sample.jpg",
+  "timestamp": "2026-10-25T14:45:53.485813Z",
+  "mode": "balanced",
+  "inference_time_ms": 1.0,
+  "total_vehicles": 0,
+  "breakdown": {
+    "cars": 0,
+    "buses": 0,
+    "trucks": 0,
+    "motorcycles": 0,
+    "bicycles": 0,
+    "vans": 0
+  },
+  "density": {
+    "level": "Low",
+    "congestion_pct": 0,
+    "occupancy_rate": 0,
+    "road_density": 0.0,
+    "total_road_area": 0
+  },
+  "detected_objects": []
+}

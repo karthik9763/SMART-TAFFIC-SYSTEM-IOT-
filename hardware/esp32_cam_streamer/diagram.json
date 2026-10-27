@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "author": "Smart Traffic System",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "board-esp32-devkit-c-v4",
+      "id": "esp",
+      "top": 0,
+      "left": 0,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "motion",
+      "top": 30,
+      "left": 300,
+      "attrs": {
+        "color": "orange",
+        "label": "MOTION"
+      }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "led-resistor",
+      "top": 150,
+      "left": 245,
+      "attrs": {
+        "value": "220"
+      }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "status-led",
+      "top": 140,
+      "left": 340,
+      "attrs": {
+        "color": "red",
+        "label": "CAMERA"
+      }
+    }
+  ],
+  "connections": [
+    ["motion:1.l", "esp:GND.1", "black", []],
+    ["motion:2.l", "esp:18", "orange", []],
+    ["esp:2", "led-resistor:1", "green", []],
+    ["led-resistor:2", "status-led:A", "green", []],
+    ["status-led:C", "esp:GND.1", "black", []]
+  ],
+  "serialMonitor": {
+    "display": "terminal",
+    "newline": "lf",
+    "convertEol": false
+  },
+  "dependencies": {}
+}

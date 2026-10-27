@@ -1,0 +1,12 @@
+.env
+.venv/
+.python/
+node_modules/
+client/node_modules/
+client/.vite/
+static/react/
+hardware/**/build/
+hardware/**/secrets.h
+deployment/mosquitto/passwords
+__pycache__/
+*.py[cod]

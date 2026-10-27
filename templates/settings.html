@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}System Settings{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h2 class="text-white fw-bold mb-1"><i class="fa-solid fa-gears text-cyan me-2"></i> System Configuration & Thresholds</h2>
+            <p class="text-secondary small mb-0">Configure camera stream endpoints, detection sensitivity, and traffic density classification rules</p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Density Threshold Configuration Form -->
+        <div class="col-lg-6">
+            <div class="glass-card p-4 h-100">
+                <h5 class="text-white fw-bold mb-3"><i class="fa-solid fa-sliders text-warning me-2"></i> Density Classification Thresholds</h5>
+                <p class="text-secondary small">Define vehicle count boundaries for real-time density classification badges.</p>
+
+                <form method="POST" action="{{ url_for('settings_page') }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                    <div class="mb-3">
+                        <label class="form-label text-secondary small">Low Traffic Max Vehicle Limit</label>
+                        <input type="number" name="low_max" class="form-control form-control-cyber" value="{{ thresholds.LOW_MAX }}" min="1" max="20" required>
+                        <small class="text-muted">Vehicle counts 0 to this limit will be classified as <strong>LOW TRAFFIC</strong>.</small>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label text-secondary small">Medium Traffic Max Vehicle Limit</label>
+                        <input type="number" name="medium_max" class="form-control form-control-cyber" value="{{ thresholds.MEDIUM_MAX }}" min="2" max="40" required>
+                        <small class="text-muted">Counts above Low and up to this limit are <strong>MEDIUM</strong>; higher counts are <strong>HIGH</strong> until the Critical threshold.</small>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label text-secondary small">Critical Traffic Minimum</label>
+                        <input type="number" name="critical_min" class="form-control form-control-cyber" value="{{ thresholds.CRITICAL_MIN }}" min="3" max="500" required>
+                        <small class="text-muted">Counts at or above this threshold are classified as <strong>CRITICAL</strong>.</small>
+                    </div>
+
+                    <button type="submit" class="btn btn-cyber">
+                        <i class="fa-solid fa-floppy-disk me-2"></i> Save Threshold Settings
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Camera Details Configuration -->
+        <div class="col-lg-6">
+            <div class="glass-card p-4 h-100">
+                <h5 class="text-white fw-bold mb-3"><i class="fa-solid fa-video text-cyan me-2"></i> Registered Camera Endpoints</h5>
+                
+                <div class="list-group">
+                    {% for c in cameras %}
+                    <div class="list-group-item bg-dark bg-opacity-50 border-secondary text-white mb-2 rounded-3 p-3">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <h6 class="fw-bold mb-0">{{ c.name }}</h6>
+                            <span class="badge {% if c.status == 'Active' %}bg-success{% else %}bg-secondary{% endif %}">{{ c.status }}</span>
+                        </div>
+                        <small class="text-secondary d-block">Location: {{ c.location }}</small>
+                        <small class="text-cyan d-block font-monospace">Stream URL: {{ c.stream_url }}</small>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

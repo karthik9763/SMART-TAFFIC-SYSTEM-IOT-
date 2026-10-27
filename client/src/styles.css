@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+@theme {
+  --color-canvas: #0b1220;
+  --color-panel: #111c2f;
+  --color-accent: #31d6c3;
+}
+
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  color-scheme: dark;
+}
+
+body { min-width: 320px; background: #0b1220; }
+.eyebrow { margin: 0; color: #31d6c3; font-size: .72rem; font-weight: 800; letter-spacing: .16em; }
+.metric-card, .panel-card { height: 100%; border: 1px solid #223149; background: #111c2f !important; }
+.metric-label { margin: 0; color: #91a0b5; font-size: .72rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
+.metric-value { margin: .7rem 0 .35rem; color: #f3f7fc; font-size: 1.8rem; font-weight: 750; }
+.metric-helper, .section-helper { margin: 0; color: #91a0b5; font-size: .83rem; }
+.section-title { margin: 0; color: #f3f7fc; font-size: 1.08rem; font-weight: 700; }
+.empty-state { margin: 1.4rem 0 .4rem; color: #91a0b5; font-size: .9rem; }
+.result-box { border: 1px solid #26364c; border-radius: 12px; background: #0b1220; padding: 14px; }
+.data-table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+.data-table th { padding: 10px; color: #91a0b5; font-size: .7rem; text-align: left; text-transform: uppercase; }
+.data-table td { padding: 12px 10px; border-top: 1px solid #26364c; color: #e4ebf5; }
+.data-table td small, .event-list small { display: block; margin-top: 4px; color: #91a0b5; font-size: .75rem; }
+.camera-preview { display: block; width: 100%; max-height: 360px; border-radius: 10px; background: #080d16; object-fit: contain; }
+.sample-preview { display: block; width: 100%; max-height: 240px; border: 1px solid #26364c; border-radius: 10px; background: #080d16; object-fit: contain; }
+.event-list { margin-bottom: 0; list-style: none; padding: 0; }
+.event-list li { display: flex; justify-content: space-between; gap: 12px; border-top: 1px solid #26364c; padding: 12px 0; color: #cbd5e1; font-size: .83rem; }
+.event-list li:first-child { border-top: 0; }
+.event-list strong { color: #dff8f4; font-weight: 600; }
+.event-list li > span { align-self: center; color: #91a0b5; text-align: right; }
+
+@media (max-width: 640px) {
+  .metric-value { font-size: 1.45rem; }
+  .event-list li { flex-direction: column; }
+  .event-list li > span { align-self: flex-start; text-align: left; }
+}

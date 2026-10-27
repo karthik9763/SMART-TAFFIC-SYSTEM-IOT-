@@ -1,0 +1,94 @@
+{
+  "timestamp": "2026-10-27T00:52:08.524087Z",
+  "overall_status": "GREEN",
+  "components": {
+    "WiFi": {
+      "status": "GREEN",
+      "label": "WiFi",
+      "healthy": true,
+      "message": "Network online (Resolved broker.hivemq.com)",
+      "latency_ms": 12.4
+    },
+    "MQTT": {
+      "status": "GREEN",
+      "label": "MQTT",
+      "healthy": true,
+      "active_broker": "broker.hivemq.com",
+      "brokers_available": [
+        "broker.hivemq.com",
+        "broker.emqx.io",
+        "test.mosquitto.org"
+      ],
+      "broker_pool_status": [
+        "broker.hivemq.com:1883 (ONLINE)",
+        "broker.emqx.io:1883 (ONLINE)",
+        "test.mosquitto.org:1883 (STANDBY)"
+      ],
+      "message": "Multi-Broker Pool Operational (Primary: broker.hivemq.com:1883)"
+    },
+    "Backend": {
+      "status": "GREEN",
+      "label": "Backend",
+      "healthy": true,
+      "total_endpoints": 53,
+      "message": "Flask 3.0 Operational (53 endpoints registered)"
+    },
+    "Database": {
+      "status": "GREEN",
+      "label": "Database",
+      "healthy": true,
+      "tables_verified": [
+        "alerts",
+        "camera_details",
+        "iot_alerts",
+        "iot_devices",
+        "iot_mqtt_events",
+        "iot_telemetry",
+        "login_history",
+        "predictions",
+        "reports",
+        "traffic_records",
+        "users",
+        "vehicles"
+      ],
+      "message": "SQLite Schema Verified (12 tables active)"
+    },
+    "YOLO": {
+      "status": "GREEN",
+      "label": "YOLO",
+      "healthy": true,
+      "model_name": "yolo11n.pt",
+      "device": "cpu",
+      "target_classes": [
+        "Car",
+        "Bus",
+        "Truck",
+        "Motorcycle",
+        "Bicycle",
+        "Van",
+        "Auto-rickshaw"
+      ],
+      "message": "YOLOv11 Engine Ready (yolo11n.pt, 6 classes, cpu)"
+    },
+    "WebSocket": {
+      "status": "GREEN",
+      "label": "WebSocket",
+      "healthy": true,
+      "async_mode": "threading",
+      "message": "Socket.IO Active (async_mode=threading)"
+    }
+  },
+  "counter_synchronization_test": {
+    "test_passed": true,
+    "ai_initial_count": 10,
+    "after_entry_pulse": 11,
+    "after_exit_pulse": 10,
+    "density_recalculated": true,
+    "status": "PASSED"
+  },
+  "runtime_environment": {
+    "python_version": "3.11.9",
+    "os": "nt",
+    "project_root": "C:\\Users\\Karthik\\OneDrive\\Desktop\\SMART TRAFFIC IOT"
+  }
+}

@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+
+{% block title %}Traffic Analytics & Logs{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h2 class="text-white fw-bold mb-1"><i class="fa-solid fa-chart-line text-cyan me-2"></i> Traffic Analytics & Historical Trends</h2>
+            <p class="text-secondary small mb-0">Deep Neural Network traffic density analytics, peak hour trends, and speed telemetry</p>
+        </div>
+    </div>
+
+    <!-- Charts Row -->
+    <div class="row g-4 mb-4">
+        <div class="col-lg-8">
+            <div class="glass-card p-4">
+                <h5 class="text-white fw-bold mb-3"><i class="fa-solid fa-chart-area text-cyan me-2"></i> Hourly Traffic Volume & Velocity Trend</h5>
+                <div style="height: 320px;">
+                    <canvas id="countTrendChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="glass-card p-4">
+                <h5 class="text-white fw-bold mb-3"><i class="fa-solid fa-chart-pie text-warning me-2"></i> Density Distribution</h5>
+                <div style="height: 320px;">
+                    <canvas id="densityPieChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Historical Records Table with Search/Filter -->
+    <div class="glass-card p-4">
+        <div class="d-flex align-items-center justify-content-between mb-3">
+            <h5 class="text-white fw-bold mb-0"><i class="fa-solid fa-clock-rotate-left text-cyan me-2"></i> Traffic Record History Logs</h5>
+            <input type="text" id="tableSearchInput" class="form-control form-control-cyber w-auto" placeholder="Search logs..." onkeyup="filterTable()">
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-custom align-middle" id="historyLogTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Camera ID</th>
+                        <th>Vehicle Count</th>
+                        <th>Category Breakdown</th>
+                        <th>Density Status</th>
+                        <th>Avg Speed</th>
+                        <th>Occupancy %</th>
+                        <th>Timestamp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for rec in records %}
+                    <tr>
+                        <td class="text-secondary">#{{ rec.id }}</td>
+                        <td class="text-white fw-semibold">Camera #{{ rec.camera_id }}</td>
+                        <td><span class="badge bg-primary px-3 py-2 fw-bold" style="font-size:0.9rem;">{{ rec.vehicle_count }}</span></td>
+                        <td class="small text-secondary">
+                            Cars: {{ rec.cars_count }} | Buses: {{ rec.buses_count }} | Trucks: {{ rec.trucks_count }} | Bikes: {{ rec.bikes_count }}
+                        </td>
+                        <td>
+                            {% if rec.density_status == 'Low' %}
+                            <span class="density-badge density-low">LOW</span>
+                            {% elif rec.density_status == 'Medium' %}
+                            <span class="density-badge density-medium">MEDIUM</span>
+                            {% else %}
+                            <span class="density-badge density-high">HIGH</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-white">{{ rec.average_speed_kmh|round(1) }} km/h</td>
+                        <td class="text-white">{{ rec.occupancy_rate|round(1) }}%</td>
+                        <td class="small text-secondary">{{ rec.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="8" class="text-center text-muted py-4">No historical traffic records found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/analytics.js') }}"></script>
+<script>
+function filterTable() {
+    const input = document.getElementById('tableSearchInput').value.toLowerCase();
+    const rows = document.querySelectorAll('#historyLogTable tbody tr');
+    rows.forEach(row => {
+        const text = row.innerText.toLowerCase();
+        row.style.display = text.includes(input) ? '' : 'none';
+    });
+}
+</script>
+{% endblock %}

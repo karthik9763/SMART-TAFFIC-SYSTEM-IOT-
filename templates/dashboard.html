@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard Overview{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Header Title -->
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h2 class="text-white fw-bold mb-1"><i class="fa-solid fa-gauge-high text-cyan me-2"></i> Traffic Operations Dashboard</h2>
+            <p class="text-secondary small mb-0">Stored camera analyses and authenticated IoT telemetry; simulation data is labeled</p>
+        </div>
+        <div>
+            <a href="{{ url_for('live_monitor') }}" class="btn btn-cyber">
+                <i class="fa-solid fa-cloud-arrow-up me-2"></i> Upload Traffic Image for AI Prediction
+            </a>
+        </div>
+    </div>
+
+    <!-- Top KPI Cards -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="glass-card stat-widget">
+                <div>
+                    <span class="text-secondary small fw-semibold d-block">ACTIVE CAMERAS</span>
+                    <h3 class="text-white fw-bold my-1">{{ camera_count }}</h3>
+                    <span class="text-secondary small" style="font-size:0.75rem;">Configured active camera records</span>
+                </div>
+                <div class="stat-icon-wrapper stat-icon-blue">
+                    <i class="fa-solid fa-camera"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="glass-card stat-widget">
+                <div>
+                    <span class="text-secondary small fw-semibold d-block">VEHICLES LOGGED</span>
+                    <h3 class="text-white fw-bold my-1">{{ total_vehicles }}</h3>
+                    <span class="text-secondary small" style="font-size:0.75rem;">From stored image analyses and device counts</span>
+                </div>
+                <div class="stat-icon-wrapper stat-icon-emerald">
+                    <i class="fa-solid fa-car"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="glass-card stat-widget">
+                <div>
+                    <span class="text-secondary small fw-semibold d-block">ACTIVE ALERTS</span>
+                    <h3 class="text-white fw-bold my-1">{{ active_alerts }}</h3>
+                    <span class="badge bg-danger bg-opacity-20 text-danger" style="font-size:0.75rem;">
+                        <i class="fa-solid fa-triangle-exclamation me-1"></i> Requires Review
+                    </span>
+                </div>
+                <div class="stat-icon-wrapper stat-icon-danger">
+                    <i class="fa-solid fa-bell"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="glass-card stat-widget">
+                <div>
+                    <span class="text-secondary small fw-semibold d-block">DNN MODEL STATUS</span>
+                    <h3 class="text-white fw-bold my-1" style="font-size: 1.4rem;">DNN-v1.0</h3>
+                    <span class="badge bg-info bg-opacity-20 text-info" style="font-size:0.75rem;">
+                        <i class="fa-solid fa-microchip me-1"></i> {{ online_devices }} / {{ device_count }} IoT devices online
+                    </span>
+                </div>
+                <div class="stat-icon-wrapper stat-icon-warning">
+                    <i class="fa-solid fa-network-wired"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Live Feed & Recent Alerts Row -->
+    <div class="row g-4 mb-4">
+        <!-- Latest Uploaded Traffic Image Preview -->
+        <div class="col-lg-7">
+            <div class="glass-card p-3 h-100">
+                <div class="d-flex align-items-center justify-content-between mb-3 px-2">
+                    <h5 class="text-white fw-bold mb-0">
+                        <i class="fa-solid fa-image text-cyan me-2"></i> Latest Analyzed Traffic Image
+                    </h5>
+                    {% if latest_prediction %}
+                    <span class="density-badge density-{{ latest_prediction.predicted_density.lower() }}" id="dashDensityBadge">
+                        {{ latest_prediction.predicted_density.upper() }} TRAFFIC ({{ latest_prediction.confidence_score }}%)
+                    </span>
+                    {% else %}
+                    <span class="density-badge density-low" id="dashDensityBadge">
+                        NO IMAGE ANALYZED
+                    </span>
+                    {% endif %}
+                </div>
+
+                <div class="video-canvas-container text-center p-2 bg-dark rounded-3">
+                    {% if latest_prediction %}
+                    <img id="dashPreviewImg" src="{{ url_for('static', filename=(latest_prediction.annotated_image_path or latest_prediction.image_path).replace('static/', '')) }}" class="img-fluid rounded-2 shadow" style="max-height: 360px; width: auto;" alt="Latest Analyzed Traffic">
+                    {% else %}
+                    <div class="py-5 text-center">
+                        <i class="fa-solid fa-cloud-arrow-up text-secondary fs-1 mb-3"></i>
+                        <p class="text-secondary mb-2">No uploaded image analyzed yet.</p>
+                        <a href="{{ url_for('live_monitor') }}" class="btn btn-cyber btn-sm">
+                            <i class="fa-solid fa-plus me-1"></i> Upload Image Now
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Alerts & Congestion Notices -->
+        <div class="col-lg-5">
+            <div class="glass-card p-4 h-100">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h5 class="text-white fw-bold mb-0"><i class="fa-solid fa-triangle-exclamation text-warning me-2"></i> Recent Traffic Alerts</h5>
+                    <a href="{{ url_for('alerts_page') }}" class="text-cyan small text-decoration-none">View All</a>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-custom align-middle">
+                        <thead>
+                            <tr>
+                                <th>Severity</th>
+                                <th>Alert Message</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for alert in recent_alerts %}
+                            <tr>
+                                <td>
+                                    {% if alert.severity == 'Critical' %}
+                                    <span class="badge bg-danger">Critical</span>
+                                    {% elif alert.severity == 'Warning' %}
+                                    <span class="badge bg-warning text-dark">Warning</span>
+                                    {% else %}
+                                    <span class="badge bg-info">Info</span>
+                                    {% endif %}
+                                </td>
+                                <td class="small text-white">{{ alert.message }}</td>
+                                <td class="small text-secondary">{{ alert.timestamp.strftime('%H:%M') }}</td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="3" class="text-center text-muted py-4">No active alerts reported.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

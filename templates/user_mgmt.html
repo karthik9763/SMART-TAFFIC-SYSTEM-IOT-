@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %}User Management{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div>
+            <h2 class="text-white fw-bold mb-1"><i class="fa-solid fa-users-gear text-cyan me-2"></i> User Access & Privilege Management</h2>
+            <p class="text-secondary small mb-0">Manage system operators, administrators, and security access controls</p>
+        </div>
+        <div>
+            <button class="btn btn-cyber" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                <i class="fa-solid fa-user-plus me-2"></i> Create System User
+            </button>
+        </div>
+    </div>
+
+    <!-- Users Table -->
+    <div class="glass-card p-4">
+        <h5 class="text-white fw-bold mb-3"><i class="fa-solid fa-users text-cyan me-2"></i> Registered Accounts</h5>
+        <div class="table-responsive">
+            <table class="table table-custom align-middle">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Username</th>
+                        <th>Email Address</th>
+                        <th>System Role</th>
+                        <th>Date Registered</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for u in users %}
+                    <tr>
+                        <td class="text-secondary">#{{ u.id }}</td>
+                        <td class="text-white fw-bold">{{ u.username }}</td>
+                        <td class="text-secondary">{{ u.email }}</td>
+                        <td>
+                            {% if u.role == 'Admin' %}
+                            <span class="badge bg-danger">Administrator</span>
+                            {% else %}
+                            <span class="badge bg-info">Operator</span>
+                            {% endif %}
+                        </td>
+                        <td class="small text-secondary">{{ u.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                        <td>
+                            {% if u.id != session.get('user_id') %}
+                            <form method="POST" action="{{ url_for('delete_user_api', user_id=u.id) }}" class="d-inline" onsubmit="return confirm('Are you sure you want to delete user {{ u.username }}?');">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                                <button type="submit" class="btn btn-glass btn-sm text-danger">
+                                    <i class="fa-solid fa-trash me-1"></i> Delete
+                                </button>
+                            </form>
+                            {% else %}
+                            <span class="text-muted small">Current Session</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Add User Modal -->
+<div class="modal fade" id="addUserModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content glass-card border-secondary text-white">
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title fw-bold"><i class="fa-solid fa-user-plus text-cyan me-2"></i> Create New User Account</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="{{ url_for('add_user_api') }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+                    <div class="mb-3">
+                        <label class="form-label text-secondary small">Username</label>
+                        <input type="text" name="username" class="form-control form-control-cyber" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-secondary small">Email Address</label>
+                        <input type="email" name="email" class="form-control form-control-cyber" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label text-secondary small">Password</label>
+                        <input type="password" name="password" class="form-control form-control-cyber" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label text-secondary small">Role</label>
+                        <select name="role" class="form-select form-select-cyber">
+                            <option value="User">Operator (Standard User)</option>
+                            <option value="Admin">Administrator (Full Privileges)</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-cyber w-100">
+                        <i class="fa-solid fa-check me-2"></i> Add Account
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

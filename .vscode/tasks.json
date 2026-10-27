@@ -1,0 +1,36 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "PlatformIO: Build ESP32 IR Counter",
+      "type": "shell",
+      "command": "pio run -d hardware/esp32_ir_counter",
+      "windows": {
+        "command": ".\\.python\\python.exe -m platformio run -d hardware/esp32_ir_counter"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": "$platformio"
+    },
+    {
+      "label": "PlatformIO: Clean ESP32 IR Counter",
+      "type": "shell",
+      "command": "pio run -d hardware/esp32_ir_counter -t clean",
+      "windows": {
+        "command": ".\\.python\\python.exe -m platformio run -d hardware/esp32_ir_counter -t clean"
+      },
+      "problemMatcher": "$platformio"
+    },
+    {
+      "label": "Arduino CLI: Compile ESP32 IR Counter",
+      "type": "shell",
+      "command": "arduino-cli compile --fqbn esp32:esp32:esp32 --output-dir build hardware/esp32_ir_counter",
+      "windows": {
+        "command": "C:\\Users\\Karthik\\bin\\arduino-cli.exe compile --fqbn esp32:esp32:esp32 --output-dir hardware/esp32_ir_counter/build hardware/esp32_ir_counter"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

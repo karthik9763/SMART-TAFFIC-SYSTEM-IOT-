@@ -1,0 +1,43 @@
+# Thesis Presentation Slide Deck Outline (20 Slides)
+## Smart Traffic Density Prediction using IoT and Deep Neural Networks (DNN)
+
+- **Slide 1: Title Slide**
+  - Project Title, Author Name, USN, Guide Name, Department of CSE.
+- **Slide 2: Problem Statement**
+  - Gridlocks, carbon emissions, static traffic signal inefficiencies.
+- **Slide 3: Project Objectives**
+  - Real-time vehicle detection, DNN density prediction, ESP32-CAM stream, open-source dashboard.
+- **Slide 4: Literature Review**
+  - Comparison with existing inductive loop sensors and expensive cloud APIs.
+- **Slide 5: System Methodology**
+  - Data Flow & Computer Vision + ML pipeline.
+- **Slide 6: Hardware Setup (ESP32-CAM)**
+  - Circuit wiring, FTDI programmer, Wi-Fi MJPEG stream.
+- **Slide 7: Dataset & Feature Engineering**
+  - Vehicle count, lane occupancy ratio, average velocity, temporal features.
+- **Slide 8: Deep Neural Network (DNN) Architecture**
+  - Input (5) -> Hidden (64) -> Hidden (32) -> Output (3: Low, Medium, High).
+- **Slide 9: Computer Vision Engine (OpenCV)**
+  - MOG2 background subtraction, morphological noise removal, ROI tracking.
+- **Slide 10: Flask Web Backend Architecture**
+  - SQLAlchemy 8 tables, session security, REST API endpoints.
+- **Slide 11: Frontend UI & Glassmorphic Dashboard**
+  - Responsive Bootstrap 5 layout, Chart.js graphs, notification drawer.
+- **Slide 12: Experimental Setup**
+  - Hardware specs, Python environment, OpenCV 4.8.
+- **Slide 13: Confusion Matrix Results**
+  - 3x3 Matrix breakdown across 500 test samples.
+- **Slide 14: Model Performance Metrics**
+  - Accuracy (96.4%), Precision (96.2%), Recall (96.4%), F1-Score (96.3%).
+- **Slide 15: PDF Reports & Audit Logs**
+  - Daily/Weekly report exporter and security login logs.
+- **Slide 16: System Test Cases**
+  - Passage criteria and verification results.
+- **Slide 17: User Manual & Operational Demo**
+  - Screenshots of Live Monitor, Analytics, and Settings pages.
+- **Slide 18: Comparative Advantages**
+  - 100% free open-source software, zero cloud cost, low latency.
+- **Slide 19: Future Scope**
+  - Integration with hardware traffic lights and Raspberry Pi edge TPUs.
+- **Slide 20: Conclusion & References**
+  - Key takeaways, IEEE citations, Q&A session.

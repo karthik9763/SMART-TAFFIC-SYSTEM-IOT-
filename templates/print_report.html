@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ report_type }} Traffic Report</title>
+    <style>
+        body { color: #17212b; font: 15px Arial, sans-serif; margin: 32px auto; max-width: 1100px; padding: 0 20px; }
+        h1, h2 { color: #12304a; }
+        .metadata { background: #edf3f8; border-radius: 6px; padding: 14px 18px; }
+        table { border-collapse: collapse; margin: 20px 0; width: 100%; }
+        th, td { border: 1px solid #cbd5e1; padding: 8px; text-align: left; }
+        th { background: #12304a; color: white; }
+        .notice { color: #526272; font-size: 13px; }
+        @media print { body { margin: 0; max-width: none; } .print-button { display: none; } }
+    </style>
+</head>
+<body>
+    <button class="print-button" onclick="window.print()">Print / Save as PDF</button>
+    <h1>Traffic Operations Report</h1>
+    <div class="metadata">
+        <div><strong>Period:</strong> {{ report_type }} ({{ start.strftime('%Y-%m-%d %H:%M') }} UTC to {{ generated_at.strftime('%Y-%m-%d %H:%M') }} UTC)</div>
+        <div><strong>Generated:</strong> {{ generated_at.strftime('%Y-%m-%d %H:%M:%S') }} UTC</div>
+        <div><strong>Recorded vehicle passages / detections:</strong> {{ total_vehicles }}</div>
+    </div>
+    <p class="notice">This report contains stored observations only. Simulation events are marked as simulation; speed is shown only if measured. Legacy records without source metadata are excluded.</p>
+
+    <h2>Camera / Image Records</h2>
+    <table>
+        <thead><tr><th>Time (UTC)</th><th>Source</th><th>Camera ID</th><th>Count</th><th>Density</th><th>Speed (km/h)</th></tr></thead>
+        <tbody>
+        {% for record in image_records %}
+        <tr>
+            <td>{{ record.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+            <td>{{ record.source_type }}</td>
+            <td>{{ record.camera_id or 'Unassigned' }}</td>
+            <td>{{ record.vehicle_count }}</td>
+            <td>{{ record.density_status }}</td>
+            <td>{{ 'Not measured' if not record.average_speed_kmh else record.average_speed_kmh }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="6">No camera or image records in this period.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>IoT Telemetry Records</h2>
+    <table>
+        <thead><tr><th>Time (UTC)</th><th>Device</th><th>Mode</th><th>New passages</th><th>Lifetime count</th><th>Estimated flow / min</th><th>Density estimate</th></tr></thead>
+        <tbody>
+        {% for reading in device_records %}
+        <tr>
+            <td>{{ reading.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+            <td>{{ reading.device_id }}</td>
+            <td>{{ reading.mode }}</td>
+            <td>{{ reading.interval_vehicle_count }}</td>
+            <td>{{ reading.total_vehicle_count }}</td>
+            <td>{{ reading.flow_per_minute }}</td>
+            <td>{{ reading.density }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="7">No device telemetry in this period.</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

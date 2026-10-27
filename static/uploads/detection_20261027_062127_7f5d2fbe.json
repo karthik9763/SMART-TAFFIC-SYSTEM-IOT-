@@ -1,0 +1,46 @@
+{
+  "filename": "upload_20260921_135957_0fdd4c01.jpg",
+  "timestamp": "2026-10-27T00:51:27.882063Z",
+  "mode": "fast",
+  "inference_time_ms": 2268.2,
+  "total_vehicles": 2,
+  "breakdown": {
+    "cars": 2,
+    "buses": 0,
+    "trucks": 0,
+    "motorcycles": 0,
+    "bicycles": 0,
+    "vans": 0
+  },
+  "density": {
+    "level": "Low",
+    "congestion_pct": 10.3,
+    "occupancy_rate": 1.3,
+    "road_density": 0.086,
+    "total_road_area": 232164
+  },
+  "detected_objects": [
+    {
+      "type": "Car",
+      "bbox": [
+        279,
+        28,
+        54,
+        28
+      ],
+      "confidence": 45.8,
+      "area": 1512
+    },
+    {
+      "type": "Car",
+      "bbox": [
+        352,
+        66,
+        55,
+        26
+      ],
+      "confidence": 38.7,
+      "area": 1430
+    }
+  ]
+}

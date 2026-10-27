@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="glass-card p-4 mb-4">
+                <div class="d-flex align-items-center gap-4">
+                    <div class="rounded-circle bg-gradient text-white d-flex align-items-center justify-content-center display-4 fw-bold" style="width: 90px; height: 90px; background: linear-gradient(135deg, var(--accent-blue), var(--accent-indigo));">
+                        {{ user.username[0]|upper }}
+                    </div>
+                    <div>
+                        <h3 class="text-white fw-bold mb-1">{{ user.username }}</h3>
+                        <p class="text-secondary small mb-2"><i class="fa-solid fa-envelope me-1"></i> {{ user.email }}</p>
+                        <span class="badge bg-primary px-3 py-2 fw-semibold">{{ user.role }} Account</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="glass-card p-4">
+                <h5 class="text-white fw-bold mb-3"><i class="fa-solid fa-clock-rotate-left text-cyan me-2"></i> Recent Session Logins</h5>
+                <div class="table-responsive">
+                    <table class="table table-custom align-middle">
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>IP Address</th>
+                                <th>Browser / OS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for h in history %}
+                            <tr>
+                                <td class="small text-secondary">{{ h.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                                <td class="text-cyan small">{{ h.ip_address }}</td>
+                                <td class="text-white small">{{ h.user_agent }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

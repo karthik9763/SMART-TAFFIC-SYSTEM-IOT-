@@ -1,0 +1,33 @@
+{
+  "configurations": [
+    {
+      "name": "ESP32 (PlatformIO)",
+      "includePath": [
+        "${workspaceFolder}/**",
+        "${workspaceFolder}/hardware/esp32_ir_counter/**",
+        "${workspaceFolder}/hardware/esp32_cam_streamer/**",
+        "${workspaceFolder}/hardware/esp32_ir_counter/.pio/libdeps/esp32dev/**",
+        "C:/Users/Karthik/.platformio/packages/framework-arduinoespressif32/cores/esp32",
+        "C:/Users/Karthik/.platformio/packages/framework-arduinoespressif32/variants/esp32",
+        "C:/Users/Karthik/.platformio/packages/framework-arduinoespressif32/libraries/**",
+        "C:/Users/Karthik/.platformio/packages/framework-arduinoespressif32-esp32-libs/esp32/include/**"
+      ],
+      "defines": [
+        "PLATFORMIO=60200",
+        "ESP32",
+        "ESP_PLATFORM",
+        "ARDUINO=10812",
+        "ARDUINO_ARCH_ESP32",
+        "ARDUINO_ESP32_DEV",
+        "F_CPU=240000000L",
+        "ARDUINO_RUNNING_CORE=1",
+        "ARDUINO_EVENT_RUNNING_CORE=1"
+      ],
+      "compilerPath": "C:/Users/Karthik/.platformio/packages/toolchain-xtensa-esp-elf/bin/xtensa-esp32-elf-gcc.exe",
+      "cStandard": "c11",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "gcc-x64"
+    }
+  ],
+  "version": 4
+}

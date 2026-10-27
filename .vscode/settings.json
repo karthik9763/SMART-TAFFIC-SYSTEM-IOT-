@@ -1,0 +1,6 @@
+{
+  "wokwi.diagramFile": "hardware/esp32_ir_counter/diagram.json",
+  "wokwi.firmwareFile": "hardware/esp32_ir_counter/.pio/build/esp32dev/firmware.bin",
+  "wokwi.elfFile": "hardware/esp32_ir_counter/.pio/build/esp32dev/firmware.elf",
+  "git.ignoreLimitWarning": true
+}

@@ -1,0 +1,117 @@
+{
+  "timestamp": "2026-10-27T00:53:09.330056Z",
+  "summary": {
+    "total": 17,
+    "passed": 17,
+    "failed": 0
+  },
+  "results": {
+    "Authentication": [
+      {
+        "test": "Admin JWT Login",
+        "status": "PASS",
+        "details": "Status: 200"
+      }
+    ],
+    "YOLO Detection": [
+      {
+        "test": "Inference Mode: FAST",
+        "status": "PASS",
+        "details": "Count=2, BreakdownSum=2, Model=YOLOv11 (fast)"
+      },
+      {
+        "test": "Inference Mode: BALANCED",
+        "status": "PASS",
+        "details": "Count=26, BreakdownSum=26, Model=YOLOv11 (balanced)"
+      },
+      {
+        "test": "Inference Mode: HIGH_ACCURACY",
+        "status": "PASS",
+        "details": "Count=25, BreakdownSum=25, Model=YOLOv11 (high_accuracy)"
+      }
+    ],
+    "Density Engine": [
+      {
+        "test": "Density Recalculation",
+        "status": "PASS",
+        "details": "Level: Very High, Congestion: 91.3%"
+      }
+    ],
+    "Lane Occupancy": [
+      {
+        "test": "Non-Zero Lane Occupancy",
+        "status": "PASS",
+        "details": "Lane Occupancy: 16.0%"
+      }
+    ],
+    "Backend API": [
+      {
+        "test": "Consistent JSON API Contract",
+        "status": "PASS",
+        "details": "Keys: ['analytics', 'counts', 'density', 'detections', 'prediction', 'status', 'success']"
+      }
+    ],
+    "Dashboard": [
+      {
+        "test": "Live Telemetry Synchronization",
+        "status": "PASS",
+        "details": "Live Count: 26, Density: Very High"
+      }
+    ],
+    "Simulation": [
+      {
+        "test": "Simulation Start",
+        "status": "PASS",
+        "details": "Simulation Running"
+      },
+      {
+        "test": "Simulation Pause",
+        "status": "PASS",
+        "details": "Simulation Paused"
+      },
+      {
+        "test": "Simulation Resume",
+        "status": "PASS",
+        "details": "Simulation Resumed"
+      },
+      {
+        "test": "Simulation Clock Step",
+        "status": "PASS",
+        "details": "Clock Stepped 1s"
+      },
+      {
+        "test": "Simulation Reset",
+        "status": "PASS",
+        "details": "Simulation Reset"
+      }
+    ],
+    "Traffic Lights": [
+      {
+        "test": "Adaptive Traffic Signals Query",
+        "status": "PASS",
+        "details": "Signals: {'east': 'RED', 'north': 'GREEN', 'south': 'GREEN', 'west': 'RED'}"
+      }
+    ],
+    "Emergency Preemption": [
+      {
+        "test": "Emergency Wave Dispatch",
+        "status": "PASS",
+        "details": "North Signal Preempted to GREEN"
+      }
+    ],
+    "MQTT & IoT": [
+      {
+        "test": "IoT Device Query",
+        "status": "PASS",
+        "details": "Devices count: 4"
+      }
+    ],
+    "Logging": [
+      {
+        "test": "Comprehensive logs/inference.log",
+        "status": "PASS",
+        "details": "Verified all 8 required pipeline stages in inference.log"
+      }
+    ]
+  }
+}
